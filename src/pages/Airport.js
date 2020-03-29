@@ -39,7 +39,6 @@ class AirportPage extends Component {
         })
             .then((resData) => {
                 this.setState({ airportList: resData.airports })
-                console.log(resData)
             })
             .catch(err => {
                 console.log(err);

@@ -69,7 +69,6 @@ class ReportPage extends Component {
         })
             .then((resData) => {
                 this.setState({ fuelSumamry: resData.result })
-                console.log(this.state.fuelSumamry)
             })
             .catch(err => {
                 console.log(err);

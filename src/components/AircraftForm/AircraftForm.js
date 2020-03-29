@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import './AircraftForm.css';
 
@@ -41,6 +43,7 @@ class AircraftForm extends Component {
             }
         }).then(res => {
             if (res.status !== 200 && res.status !== 201) {
+                res.json().then(err => toast.error(err.message))
                 throw new Error(res)
             }
             return res.json()
@@ -56,27 +59,30 @@ class AircraftForm extends Component {
 
     render() {
         return (
-            <AircraftContext.Consumer>
-                {(context) => {
-                    return (
-                        <form>
-                            <div>
-                                <Input label="Enter Aircraft Name" type="text" placeholder="Enter Airport Name" id="aircraft_name" refel={this.aircraftNameElRef}></Input>
-                                <Input label="Enter Aircraft Number" type="text" placeholder="Enter Aircraft Number" id="aircraft_number" refel={this.aircraftNumberElRef}></Input>
-                                <Input label="Enter Source" type="text" placeholder="Enter Source" id="aircraft_source" refel={this.aircraftSourceElRef}></Input>
-                                <Input label="Enter Destination" type="text" placeholder="Enter Destination" id="aircraft_destination" refel={this.aircraftDestination}></Input>
-                            </div>
-                            <div className="action">
-                                <p>{this.state.message}</p>
+            <React.Fragment>
+                <AircraftContext.Consumer>
+                    {(context) => {
+                        return (
+                            <form>
                                 <div>
-                                    <Button clicked={context.closeModal}>Cancel</Button>
-                                    <Button clicked={this.addAircraftHandler}>Add Aircraft</Button>
+                                    <Input label="Enter Aircraft Name" type="text" placeholder="Enter Airport Name" id="aircraft_name" refel={this.aircraftNameElRef}></Input>
+                                    <Input label="Enter Aircraft Number" type="text" placeholder="Enter Aircraft Number" id="aircraft_number" refel={this.aircraftNumberElRef}></Input>
+                                    <Input label="Enter Source" type="text" placeholder="Enter Source" id="aircraft_source" refel={this.aircraftSourceElRef}></Input>
+                                    <Input label="Enter Destination" type="text" placeholder="Enter Destination" id="aircraft_destination" refel={this.aircraftDestination}></Input>
                                 </div>
-                            </div>
-                        </form>
-                    )
-                }}
-            </AircraftContext.Consumer>
+                                <div className="action">
+                                    <p>{this.state.message}</p>
+                                    <div>
+                                        <Button clicked={context.closeModal}>Cancel</Button>
+                                        <Button clicked={this.addAircraftHandler}>Add Aircraft</Button>
+                                    </div>
+                                </div>
+                            </form>
+                        )
+                    }}
+                </AircraftContext.Consumer>
+                <ToastContainer />
+            </React.Fragment>
         )
     }
 }

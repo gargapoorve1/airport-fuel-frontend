@@ -39,7 +39,6 @@ class AircraftPage extends Component {
         })
             .then((resData) => {
                 this.setState({ aircraftsList: resData.aircrafts })
-                console.log(resData)
             })
             .catch(err => {
                 console.log(err);

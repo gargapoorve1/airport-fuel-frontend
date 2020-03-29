@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Auth.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Input from '../components/Input/Input';
 import Button from '../components/Button/Button';
@@ -50,8 +52,9 @@ class AuthPage extends Component {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(res => {
+        }).then((res) => {
             if (res.status !== 200 && res.status !== 201) {
+                res.json().then(err => toast.error(err.message))
                 throw new Error('Failed!!')
             }
             return res.json()
@@ -62,7 +65,7 @@ class AuthPage extends Component {
                 }
             })
             .catch(err => {
-                console.log(err);
+                console.log("1", err);
             })
     }
 
@@ -80,17 +83,20 @@ class AuthPage extends Component {
             );
         }
         return (
-            <form className="auth-form">
-                <div>
-                    {signUpName}
-                    <Input type="email" id="email" label="Email" placeholder="Enter Email" refel={this.emailEl} />
-                    <Input type="password" id="password" placeholder="Enter Password" label="Password" refel={this.passwordEl} />
-                </div>
-                <div className="button-center">
-                    <Button clicked={this.submitHandler}>Submit</Button>
-                    <Button clicked={this.switchModeHandler}>Want to {this.state.isLogin ? 'SignUp' : 'SignIn'} ?</Button>
-                </div>
-            </form>
+            <React.Fragment>
+                <form className="auth-form">
+                    <div>
+                        {signUpName}
+                        <Input type="email" id="email" label="Email" placeholder="Enter Email" refel={this.emailEl} />
+                        <Input type="password" id="password" placeholder="Enter Password" label="Password" refel={this.passwordEl} />
+                    </div>
+                    <div className="button-center">
+                        <Button clicked={this.submitHandler}>Submit</Button>
+                        <Button clicked={this.switchModeHandler}>Want to {this.state.isLogin ? 'SignUp' : 'SignIn'} ?</Button>
+                    </div>
+                </form>
+                <ToastContainer />
+            </React.Fragment>
         );
     }
 }

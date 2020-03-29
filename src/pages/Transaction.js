@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Transaction.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Button from '../components/Button/Button';
 import Modal from '../components/Modal/Modal';
@@ -38,7 +40,6 @@ class TransactionPage extends Component {
             return res.json()
         })
             .then((resData) => {
-                console.log(resData)
                 this.setState({ transactionList: resData.transactions })
             })
             .catch(err => {
@@ -80,6 +81,7 @@ class TransactionPage extends Component {
             }
         }).then(res => {
             if (res.status !== 200 && res.status !== 201) {
+                res.json().then(err => toast.error(err.message))
                 throw new Error('Failed!!')
             }
             return res.json()
@@ -147,7 +149,7 @@ class TransactionPage extends Component {
                                             <td>{transaction.quantity}</td>
                                             <td>{transaction.transaction_date_time}</td>
                                             {transaction.transaction_parent_id ? <td>{transaction.transaction_parent_id}</td> : <td></td>}
-                                            {!transaction.hideButton ===true ? <td>
+                                            {!transaction.hideButton === true ? <td>
                                                 <Button clicked={() => this.reverseTransaction(transaction)}>Reverse this Transaction</Button>
                                             </td> : <td></td>}
                                         </tr>
@@ -157,6 +159,7 @@ class TransactionPage extends Component {
                         </table>
                     </div>
                 </TransactionContext.Provider>
+                <ToastContainer />
             </React.Fragment >
         );
     }

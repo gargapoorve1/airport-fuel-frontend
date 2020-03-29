@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import './TransactionForm.css'
 
@@ -98,6 +100,7 @@ class TransactionForm extends Component {
             }
         }).then(res => {
             if (res.status !== 200 && res.status !== 201) {
+                res.json().then(err => toast.error(err.message))
                 throw new Error('Failed!!')
             }
             return res.json()
@@ -117,51 +120,54 @@ class TransactionForm extends Component {
 
     render() {
         return (
-            <TransactionContext.Consumer>
-                {(context) => {
-                    return (
-                        <form>
-                            <div>
-                                <div className="Select">
-                                    <label htmlFor="transaction_type" className="Label">Select Transaction Type</label>
-                                    <select ref={this.transactionTypeElRef} onChange={this.transactionTypeHandler} className="InputElement">
-                                        <option value="IN">IN</option>
-                                        <option value="OUT">OUT</option>
-                                    </select>
-                                </div>
-                                <div className="Select">
-                                    <label htmlFor="transaction_airport" className="Label">Select Airport</label>
-                                    <select ref={this.transactionAirportElRef} className="InputElement">
-                                        {
-                                            this.state.airportList.map(airport => (
-                                                <option key={airport._id} value={airport._id}>{airport.airport_name}</option>
-                                            ))
-                                        }
-                                    </select>
-                                </div>
-                                {this.state.showAircraft && (
+            <React.Fragment>
+                <TransactionContext.Consumer>
+                    {(context) => {
+                        return (
+                            <form>
+                                <div>
                                     <div className="Select">
-                                        <label htmlFor="transaction_aircraft" className="Label">Select Aircraft</label>
-                                        <select ref={this.transactionAircraftElRef} className="InputElement">
+                                        <label htmlFor="transaction_type" className="Label">Select Transaction Type</label>
+                                        <select ref={this.transactionTypeElRef} onChange={this.transactionTypeHandler} className="InputElement">
+                                            <option value="IN">IN</option>
+                                            <option value="OUT">OUT</option>
+                                        </select>
+                                    </div>
+                                    <div className="Select">
+                                        <label htmlFor="transaction_airport" className="Label">Select Airport</label>
+                                        <select ref={this.transactionAirportElRef} className="InputElement">
                                             {
-                                                this.state.aircraftList.map(aircraft => (
-                                                    <option key={aircraft._id} value={aircraft._id}>{aircraft.airline_no}</option>
+                                                this.state.airportList.map(airport => (
+                                                    <option key={airport._id} value={airport._id}>{airport.airport_name}</option>
                                                 ))
                                             }
                                         </select>
                                     </div>
-                                )
-                                }
-                                <Input label="Enter Quantity" type="text" placeholder="Enter Quantity" id="transaction_quantity" refel={this.transactionQuantitytElRef}></Input>
-                            </div>
-                            <div className="action">
-                                <Button clicked={context.closeModal}>Cancel</Button>
-                                <Button clicked={this.addTransactionHandler}>Add Transaction</Button>
-                            </div>
-                        </form>
-                    );
-                }}
-            </TransactionContext.Consumer>
+                                    {this.state.showAircraft && (
+                                        <div className="Select">
+                                            <label htmlFor="transaction_aircraft" className="Label">Select Aircraft</label>
+                                            <select ref={this.transactionAircraftElRef} className="InputElement">
+                                                {
+                                                    this.state.aircraftList.map(aircraft => (
+                                                        <option key={aircraft._id} value={aircraft._id}>{aircraft.airline_no}</option>
+                                                    ))
+                                                }
+                                            </select>
+                                        </div>
+                                    )
+                                    }
+                                    <Input label="Enter Quantity" type="text" placeholder="Enter Quantity" id="transaction_quantity" refel={this.transactionQuantitytElRef}></Input>
+                                </div>
+                                <div className="action">
+                                    <Button clicked={context.closeModal}>Cancel</Button>
+                                    <Button clicked={this.addTransactionHandler}>Add Transaction</Button>
+                                </div>
+                            </form>
+                        );
+                    }}
+                </TransactionContext.Consumer>
+                <ToastContainer />
+            </React.Fragment>
         )
     }
 }
