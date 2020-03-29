@@ -7,5 +7,3 @@ TO run the code please perform ollowing commands.
 3. npm start
 
 the code will be running on port 3000.
-
-Simulanoeulsy run the backend code and we are good to go.
