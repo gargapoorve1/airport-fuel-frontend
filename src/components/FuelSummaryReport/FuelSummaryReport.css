@@ -1,0 +1,46 @@
+.main-fuel{
+    background: #eee;
+    border: 1px solid black;
+    padding: 10px;
+    width: 70%;
+    margin: 2rem auto;
+}
+
+.fuel-header{
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem;
+    padding: 10px;
+    font-weight: bold;
+    border-bottom: 4px dotted black;
+    position: relative;
+}
+
+.button {
+    outline: none;
+    border: none;
+    font-weight: bold;
+    color: blue;
+    cursor: pointer;
+    margin-left: 1rem;
+    padding: 6px 20px;
+    position: absolute;
+    top: -20px;
+    right: -25px;
+}
+
+.fuel-section{
+    padding: 10px;
+    width: 90%;
+    text-align: left;
+}
+
+.fuel-section-content{
+    margin: 1rem;
+    border-bottom: 2px dotted black;
+}
+
+.table-content{
+    text-align: left;
+    margin: 10px;
+}

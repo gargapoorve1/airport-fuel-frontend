@@ -1,0 +1,10 @@
+.auth-form{
+    width: 40rem;
+    max-width: 80%;
+    margin: 5rem auto;
+}
+
+.button-center{
+    text-align: center;
+    margin-top: 1rem;
+}

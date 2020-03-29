@@ -1,0 +1,11 @@
+.report-control{
+    text-align: center;
+    padding: 1rem;
+    margin: 2rem auto;
+    width: 20rem;
+    border: 1px solid #6b69f1;
+}
+
+.report-header{
+  display: flex;
+}
